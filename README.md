@@ -1,18 +1,16 @@
 # Sonit Server with Golang
 ## Introduction
-
+Sonit is a platform which supports users for purchasing, customizing billiard cues with multiple services seperated into wide range of prices. Sonit Server contains the core logic of platform to manage users' requests
 ## Folder hierarchy
 ```
 └── sonit-server
     ├── api_route
     ├── cmd
     ├── constant
-    │   ├── action_type
-    │   ├── env
-    │   ├── mail_const
-    │   └── noti
     ├── data_access
     │   └── db // Handle database actions: connection, migration, ...
+    │   └── cache
+    │   └── db_server
     ├── dto
     │   ├── request
     │   └── response
@@ -23,8 +21,6 @@
     │   └── data_access
     ├── model 
     │   ├── dto
-    │   │   ├── request
-    │   │   ├── response
     │   ├── business_object
     ├── sql_script
     │   ├── migration
@@ -34,7 +30,12 @@
     │   ├── business_logic
     │   └── test
     ├── utils
-    │   ├── cache // Redis
+    │   ├── file
     │   ├── middleware
     └── main.go
 ```
+
+
+## Reference
+Reference: [Original Repository Name](https://github.com/Sonit-Custom/sonit-server).  
+
