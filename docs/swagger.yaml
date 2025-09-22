@@ -1,0 +1,3421 @@
+basePath: /
+definitions:
+  entity.Category:
+    properties:
+      active_status:
+        type: boolean
+      category_id:
+        type: string
+      category_name:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entity.Collection:
+    properties:
+      active_status:
+        type: boolean
+      collection_id:
+        type: string
+      collection_name:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entity.Payment:
+    properties:
+      amount:
+        type: number
+      created_at:
+        type: string
+      currency:
+        type: string
+      method:
+        type: string
+      order_id:
+        type: string
+      payment_id:
+        type: string
+      status:
+        type: string
+      transaction_id:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  entity.Product:
+    properties:
+      active_status:
+        type: boolean
+      category_id:
+        type: string
+      collection_id:
+        type: string
+      collection_name:
+        type: string
+      color:
+        type: string
+      created_at:
+        type: string
+      currency:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      price:
+        type: number
+      product_id:
+        type: string
+      size:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entity.ProductInventoryTransaction:
+    properties:
+      action:
+        description: Import, Export, Sale
+        type: string
+      amount:
+        type: integer
+      created_at:
+        type: string
+      date:
+        type: string
+      note:
+        type: string
+      product_id:
+        type: string
+      transaction_id:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entity.Role:
+    properties:
+      active_status:
+        type: boolean
+      created_at:
+        type: string
+      role_id:
+        type: string
+      role_name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  entity.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      is_activated:
+        type: boolean
+      is_active:
+        type: boolean
+      is_have_to_reset_password:
+        type: boolean
+      is_vip:
+        type: boolean
+      password:
+        minLength: 10
+        type: string
+      profile_avatar:
+        type: string
+      role_id:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: string
+      vip_code:
+        type: string
+    type: object
+  entity.Voucher:
+    properties:
+      active_status:
+        type: boolean
+      allowed_category_ids:
+        items:
+          type: string
+        type: array
+      allowed_product_ids:
+        items:
+          type: string
+        type: array
+      amount:
+        type: integer
+      code:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      discount:
+        description: e.g. 10.0 for 10%
+        type: number
+      expired_at:
+        type: string
+      updated_at:
+        type: string
+      voucher_id:
+        type: string
+    required:
+    - discount
+    type: object
+  request.AddItemToCartRequest:
+    properties:
+      quantity:
+        type: integer
+      request:
+        $ref: '#/definitions/request.RemoveItemFromCartRequest'
+    required:
+    - quantity
+    - request
+    type: object
+  request.CreateCategoryRequest:
+    properties:
+      category_name:
+        type: string
+      description:
+        type: string
+    required:
+    - category_name
+    type: object
+  request.CreateCollectionRequest:
+    properties:
+      collection_name:
+        type: string
+      description:
+        type: string
+    required:
+    - collection_name
+    type: object
+  request.CreateOrderRequest:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/response.CartItem'
+        type: array
+      note:
+        type: string
+      shipping_unit:
+        type: string
+      status:
+        type: string
+      user_id:
+        type: string
+    required:
+    - items
+    - user_id
+    type: object
+  request.CreatePaymentDirectRequest:
+    properties:
+      address:
+        type: string
+      note:
+        type: string
+      phone_number:
+        type: string
+      product:
+        $ref: '#/definitions/request.ItemSelected'
+      user_id:
+        type: string
+    required:
+    - address
+    - phone_number
+    - product
+    - user_id
+    type: object
+  request.CreatePaymentThroughCartRequest:
+    properties:
+      address:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/request.ItemSelected'
+        type: array
+      note:
+        type: string
+      phone_number:
+        type: string
+      user_id:
+        type: string
+    required:
+    - address
+    - items
+    - phone_number
+    - user_id
+    type: object
+  request.CreateProductInventoryTransactionRequest:
+    properties:
+      action:
+        description: Import, Export, Sale
+        type: string
+      amount:
+        type: integer
+      date:
+        type: string
+      note:
+        type: string
+      product_id:
+        type: string
+    required:
+    - action
+    - amount
+    - date
+    - product_id
+    type: object
+  request.CreateProductRequest:
+    properties:
+      amount:
+        type: integer
+      category_id:
+        type: string
+      collection_id:
+        type: string
+      collection_name:
+        type: string
+      color:
+        type: string
+      currency:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      price:
+        type: number
+      size:
+        type: string
+    required:
+    - category_id
+    - price
+    type: object
+  request.CreateUserRequest:
+    properties:
+      actor_id:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      password:
+        minLength: 8
+        type: string
+      profile_avatar:
+        type: string
+      role_id:
+        type: string
+    required:
+    - email
+    - full_name
+    - password
+    type: object
+  request.CreateVipCodeRequest:
+    properties:
+      user_id:
+        type: string
+      vip_code:
+        type: string
+    required:
+    - user_id
+    - vip_code
+    type: object
+  request.CreateVoucherRequest:
+    properties:
+      allowed_category_ids:
+        items:
+          type: string
+        type: array
+      allowed_product_ids:
+        items:
+          type: string
+        type: array
+      amount:
+        type: integer
+      code:
+        type: string
+      description:
+        type: string
+      discount:
+        description: e.g. 10.0 for 10%
+        type: number
+      expires_at:
+        type: string
+    type: object
+  request.EditItemInCartRequest:
+    properties:
+      quantity:
+        type: integer
+      request:
+        $ref: '#/definitions/request.RemoveItemFromCartRequest'
+    required:
+    - quantity
+    type: object
+  request.ItemSelected:
+    properties:
+      product_id:
+        type: string
+      quantity:
+        type: integer
+    required:
+    - product_id
+    type: object
+  request.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  request.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  request.RemoveItemFromCartRequest:
+    properties:
+      product_id:
+        type: string
+      user_id:
+        type: string
+    required:
+    - product_id
+    - user_id
+    type: object
+  request.UpdateCategoryRequest:
+    properties:
+      category_id:
+        type: string
+      category_name:
+        type: string
+      description:
+        type: string
+    required:
+    - category_id
+    type: object
+  request.UpdateCollectionRequest:
+    properties:
+      collection_id:
+        type: string
+      collection_name:
+        type: string
+      description:
+        type: string
+    required:
+    - collection_id
+    type: object
+  request.UpdateOrderRequest:
+    properties:
+      currency:
+        type: string
+      note:
+        type: string
+      order_id:
+        type: string
+      status:
+        type: string
+    required:
+    - order_id
+    type: object
+  request.UpdatePaymentRequest:
+    properties:
+      currency:
+        type: string
+      method:
+        type: string
+      payment_id:
+        type: string
+      status:
+        type: string
+    required:
+    - payment_id
+    type: object
+  request.UpdateProductInventoryTransactionRequest:
+    properties:
+      transaction_id:
+        type: string
+      update_data:
+        $ref: '#/definitions/request.CreateProductInventoryTransactionRequest'
+    required:
+    - transaction_id
+    type: object
+  request.UpdateProductRequest:
+    properties:
+      amount:
+        type: integer
+      category_id:
+        type: string
+      collection_id:
+        type: string
+      collection_name:
+        type: string
+      color:
+        type: string
+      currency:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      price:
+        type: number
+      product_id:
+        type: string
+      size:
+        type: string
+    required:
+    - product_id
+    type: object
+  request.UpdateRoleRequest:
+    properties:
+      role_id:
+        type: string
+      role_name:
+        type: string
+    required:
+    - role_id
+    type: object
+  request.UpdateUserRequest:
+    properties:
+      actor_id:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      gender:
+        type: string
+      is_vip:
+        type: boolean
+      password:
+        minLength: 10
+        type: string
+      profile_avatar:
+        type: string
+      role_id:
+        type: string
+      user_id:
+        type: string
+    required:
+    - actor_id
+    - user_id
+    type: object
+  request.UpdateVoucherRequest:
+    properties:
+      active_status:
+        type: boolean
+      allowed_category_ids:
+        items:
+          type: string
+        type: array
+      allowed_product_ids:
+        items:
+          type: string
+        type: array
+      amount:
+        type: integer
+      code:
+        type: string
+      description:
+        type: string
+      discount:
+        description: e.g. 10.0 for 10%
+        type: number
+      expires_at:
+        type: string
+      voucher_id:
+        type: string
+    required:
+    - voucher_id
+    type: object
+  response.CartItem:
+    properties:
+      currency:
+        type: string
+      image_url:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      product_id:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  response.LoginSuccessResponse:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+  response.MessageAPIResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  response.PaginationDataResponse:
+    properties:
+      data: {}
+      page_number:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  response.RefreshTokenSuccessResponse:
+    properties:
+      access_token:
+        type: string
+    type: object
+  response.ViewOrderResponse:
+    properties:
+      created_at:
+        type: string
+      currency:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/response.CartItem'
+        type: array
+      note:
+        type: string
+      order_id:
+        type: string
+      status:
+        type: string
+      total_amount:
+        type: number
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API for Sonit Server
+  title: Sonit Server API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates user credentials and returns access token
+      parameters:
+      - description: Login credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.LoginSuccessResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: User login
+      tags:
+      - auth
+  /auth/logout/{id}:
+    post:
+      description: Logs the user out and invalidates the session
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Logout user
+      tags:
+      - auth
+  /auth/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: Refreshes the access token using a valid refresh token
+      parameters:
+      - description: Refresh Token Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.RefreshTokenSuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Refresh access token
+      tags:
+      - auth
+  /carts/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the details of a user's cart
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Page number for pagination
+        in: query
+        name: pageNumber
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: View cart detail
+      tags:
+      - carts
+  /carts/item/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new item to the user's cart
+      parameters:
+      - description: Item to add
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.AddItemToCartRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Add item to cart
+      tags:
+      - carts
+  /carts/item/edit:
+    put:
+      consumes:
+      - application/json
+      description: Updates the quantity or details of an item in the cart
+      parameters:
+      - description: Item to edit
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.EditItemInCartRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Edit item in cart
+      tags:
+      - carts
+  /carts/item/remove:
+    delete:
+      consumes:
+      - application/json
+      description: Removes an item from the user's cart
+      parameters:
+      - description: Item to remove
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.RemoveItemFromCartRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove item from cart
+      tags:
+      - carts
+  /categories:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all categories from the system
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Category'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all categories
+      tags:
+      - categories
+    post:
+      consumes:
+      - application/json
+      description: Create a new category with the provided details
+      parameters:
+      - description: Category creation request
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateCategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new category
+      tags:
+      - categories
+  /categories/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific category by its ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Category'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get category by ID
+      tags:
+      - categories
+  /categories/{id}/activate:
+    patch:
+      consumes:
+      - application/json
+      description: Activate a category by ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Activate a category
+      tags:
+      - categories
+  /categories/name/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve categories that match the specified name
+      parameters:
+      - description: Category name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Category'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get categories by name
+      tags:
+      - categories
+  /categories/remove/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove/delete a category by ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove a category
+      tags:
+      - categories
+  /categories/status:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve categories filtered by their status (active/inactive)
+      parameters:
+      - description: Category status (true for active, false for inactive)
+        in: body
+        name: status
+        required: true
+        schema:
+          type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Category'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get categories by status
+      tags:
+      - categories
+  /categories/update:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing category with new details
+      parameters:
+      - description: Category update request
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateCategoryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a category
+      tags:
+      - categories
+  /collections:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all collections from the system
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Collection'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Get all collections
+      tags:
+      - collections
+  /collections/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific collection by its ID
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Collection'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Get collection by ID
+      tags:
+      - collections
+  /collections/activate/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: Activate a collection by ID
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Activate a collection
+      tags:
+      - collections
+  /collections/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new collection with the provided details
+      parameters:
+      - description: Collection creation request
+        in: body
+        name: collection
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateCollectionRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new collection
+      tags:
+      - collections
+  /collections/name/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve collections that match the specified name
+      parameters:
+      - description: Collection name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Collection'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Get collections by name
+      tags:
+      - collections
+  /collections/remove/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove/delete a collection by ID
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove a collection
+      tags:
+      - collections
+  /collections/status:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve collections filtered by their status (active/inactive)
+      parameters:
+      - description: Collection status (true for active, false for inactive)
+        in: body
+        name: status
+        required: true
+        schema:
+          type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Collection'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get collections by status
+      tags:
+      - collections
+  /collections/update:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing collection with new details
+      parameters:
+      - description: Collection update request
+        in: body
+        name: collection
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateCollectionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a collection
+      tags:
+      - collections
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of orders
+      parameters:
+      - description: Page number
+        in: query
+        name: page_number
+        type: integer
+      - description: Search keyword
+        in: query
+        name: keyword
+        type: string
+      - description: Filter property (e.g. date, price)
+        in: query
+        name: filter_prop
+        type: string
+      - description: Sort order (ASC or DESC)
+        in: query
+        name: order
+        type: string
+      - description: User ID
+        in: query
+        name: user_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all orders
+      tags:
+      - orders
+  /orders/{id}:
+    get:
+      description: Retrieve a specific order by its ID
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.ViewOrderResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get order by ID
+      tags:
+      - orders
+  /orders/create:
+    put:
+      consumes:
+      - application/json
+      description: Submit a new order
+      parameters:
+      - description: CreateOrderRequest
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new order
+      tags:
+      - orders
+  /orders/update:
+    put:
+      consumes:
+      - application/json
+      description: Modify an order by providing updated information
+      parameters:
+      - description: UpdateOrderRequest
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update an existing order
+      tags:
+      - orders
+  /orders/user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of orders placed by a specific user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Page number
+        in: query
+        name: page_number
+        type: integer
+      - description: Search keyword
+        in: query
+        name: keyword
+        type: string
+      - description: Filter property (e.g. date, price)
+        in: query
+        name: filter_prop
+        type: string
+      - description: Sort order (ASC or DESC)
+        in: query
+        name: order
+        type: string
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get orders by user ID
+      tags:
+      - orders
+  /payments:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of payments
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Payment status
+        in: query
+        name: status
+        type: string
+      - description: Payment method
+        in: query
+        name: method
+        type: string
+      - description: User ID
+        in: query
+        name: user_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all payments
+      tags:
+      - payments
+  /payments/{id}:
+    get:
+      description: Retrieve a single payment record by its ID
+      parameters:
+      - description: Payment ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Payment'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get payment by ID
+      tags:
+      - payments
+  /payments/callback-cancel/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Handles redirect or callback after canceled payment
+      parameters:
+      - description: Payment ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Callback after canceled payment
+      tags:
+      - payments
+  /payments/callback-success/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Handles redirect or callback after successful payment
+      parameters:
+      - description: Payment ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Callback after successful payment
+      tags:
+      - payments
+  /payments/create/cart:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new payment through cart and returns redirect info or
+        confirmation
+      parameters:
+      - description: Create Payment Through Cart Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreatePaymentThroughCartRequest'
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a payment via cart
+      tags:
+      - payments
+  /payments/create/direct:
+    post:
+      consumes:
+      - application/json
+      description: Creates a payment and processes it directly without redirect
+      parameters:
+      - description: Direct Payment Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreatePaymentDirectRequest'
+      produces:
+      - application/json
+      responses:
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create direct payment
+      tags:
+      - payments
+  /payments/update:
+    put:
+      consumes:
+      - application/json
+      description: Update payment details
+      parameters:
+      - description: UpdatePaymentRequest
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdatePaymentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a payment record
+      tags:
+      - payments
+  /payments/user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of payments made by a specific user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Page number
+        in: query
+        name: page_number
+        type: integer
+      - description: Search keyword
+        in: query
+        name: keyword
+        type: string
+      - description: Filter property (e.g. date, price)
+        in: query
+        name: filter_prop
+        type: string
+      - description: Sort order (ASC or DESC)
+        in: query
+        name: order
+        type: string
+      - description: Payment status (e.g. pending, paid)
+        in: query
+        name: status
+        type: string
+      - description: Payment Method (e.g. VTP, GHTK)
+        in: query
+        name: method
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get payments by user ID
+      tags:
+      - payments
+  /product-inventory-transactions/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a specific product inventory transaction by its ID
+      parameters:
+      - description: Product inventory transaction ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.ProductInventoryTransaction'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get product inventory transaction by ID
+      tags:
+      - product-inventory-transactions
+  /product-inventory-transactions/create:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new product inventory transaction record
+      parameters:
+      - description: Create product inventory transaction request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateProductInventoryTransactionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create product inventory transaction
+      tags:
+      - product-inventory-transactions
+  /product-inventory-transactions/product/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves inventory transactions filtered by product criteria
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Page number
+        in: query
+        name: page_number
+        type: integer
+      - description: Search keyword
+        in: query
+        name: keyword
+        type: string
+      - description: Filter property (e.g. date, price)
+        in: query
+        name: filter_prop
+        type: string
+      - description: Sort order (ASC or DESC)
+        in: query
+        name: order
+        type: string
+      - description: Inventory action (e.g. import, export, sale, return)
+        in: query
+        name: action
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get inventory transactions by product
+      tags:
+      - product-inventory-transactions
+  /product-inventory-transactions/update:
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing product inventory transaction
+      parameters:
+      - description: Update product inventory transaction request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateProductInventoryTransactionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update product inventory transaction
+      tags:
+      - product-inventory-transactions
+  /products:
+    get:
+      description: Retrieve paginated list of all products
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all products
+      tags:
+      - products
+  /products/{id}:
+    get:
+      description: Retrieve a product by its ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Product'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Get product by ID
+      tags:
+      - products
+  /products/activate/{id}:
+    patch:
+      description: Set a product's status to active
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Activate a product
+      tags:
+      - products
+  /products/category/{id}:
+    get:
+      description: Retrieve products under a specific category
+      parameters:
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get products by category
+      tags:
+      - products
+  /products/collection/{id}:
+    get:
+      description: Retrieve products under a specific category
+      parameters:
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get products by collection
+      tags:
+      - products
+  /products/create:
+    post:
+      consumes:
+      - application/json
+      description: Add a new product
+      parameters:
+      - description: Product creation request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a product
+      tags:
+      - products
+  /products/customer-ui:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve filtered products for customer view
+      parameters:
+      - description: Page number
+        in: query
+        name: page_number
+        type: integer
+      - description: Search keyword
+        in: query
+        name: keyword
+        type: string
+      - description: Filter property (e.g. date, price)
+        in: query
+        name: filter_prop
+        type: string
+      - description: Sort order (ASC or DESC)
+        in: query
+        name: order
+        type: string
+      - description: Category ID
+        in: query
+        name: category_id
+        type: string
+      - description: Collection ID
+        in: query
+        name: collection_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Get products for customer UI
+      tags:
+      - products
+  /products/description/{description}:
+    get:
+      description: Retrieve products matching the description
+      parameters:
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      - description: Product description
+        in: path
+        name: description
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      - BearerAuth: []
+      summary: Get products by description
+      tags:
+      - products
+  /products/name/{name}:
+    get:
+      description: Retrieve products matching the name
+      parameters:
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      - description: Product name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      - BearerAuth: []
+      summary: Get products by name
+      tags:
+      - products
+  /products/price-interval:
+    get:
+      description: Retrieve products within a specified price range
+      parameters:
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      - description: Minimum price
+        in: query
+        name: minPrice
+        type: integer
+      - description: Maximum price
+        in: query
+        name: maxPrice
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get products by price range
+      tags:
+      - products
+  /products/remove/{id}:
+    delete:
+      description: Delete a product by ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove a product
+      tags:
+      - products
+  /products/status/{status}:
+    get:
+      description: Retrieve products filtered by active status
+      parameters:
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      - description: Product status
+        in: path
+        name: status
+        required: true
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      - BearerAuth: []
+      summary: Get products by status
+      tags:
+      - products
+  /products/update:
+    put:
+      consumes:
+      - application/json
+      description: Modify an existing product
+      parameters:
+      - description: Product update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a product
+      tags:
+      - products
+  /roles:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all roles in the system
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Role'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all roles
+      tags:
+      - roles
+  /roles/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific role by its unique identifier
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Role'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get role by ID
+      tags:
+      - roles
+  /roles/{name}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove a role with the ID from the system
+      parameters:
+      - description: Role ID
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove a role
+      tags:
+      - roles
+  /roles/activate/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: Activates a role by ID
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Activate a role
+      tags:
+      - roles
+  /roles/create/{name}:
+    post:
+      consumes:
+      - application/json
+      description: Create a new role with the specified name
+      parameters:
+      - description: Role Name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new role
+      tags:
+      - roles
+  /roles/name/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve roles that match the specified name
+      parameters:
+      - description: Role name
+        in: path
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Role'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get roles by name
+      tags:
+      - roles
+  /roles/status:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve roles that match the specified status (active/inactive)
+      parameters:
+      - description: Role status (true for active, false for inactive)
+        in: body
+        name: status
+        schema:
+          type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Role'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get roles by status
+      tags:
+      - roles
+  /roles/update:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing role with new information
+      parameters:
+      - description: Role update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a role
+      tags:
+      - roles
+  /users:
+    get:
+      description: Retrieves all users with pagination
+      parameters:
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all users
+      tags:
+      - users
+  /users/{id}:
+    get:
+      description: Fetches a specific user's details
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.User'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get user details
+      tags:
+      - users
+  /users/create:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new user account
+      parameters:
+      - description: New user details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Create new user
+      tags:
+      - users
+  /users/reset-password/{token}/{password}/{confirmPassword}:
+    post:
+      description: Resets user password using a token
+      parameters:
+      - description: New password
+        in: path
+        name: password
+        required: true
+        type: string
+      - description: Confirm password
+        in: path
+        name: confirmPassword
+        required: true
+        type: string
+      - description: Reset token
+        in: path
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Reset password
+      tags:
+      - users
+  /users/role/{role}:
+    get:
+      description: Retrieves a list of users assigned to a specific role
+      parameters:
+      - description: Role name
+        in: path
+        name: role
+        required: true
+        type: string
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get users by role
+      tags:
+      - users
+  /users/status/:
+    get:
+      consumes:
+      - application/json
+      description: Returns users filtered by active/inactive status
+      parameters:
+      - description: Page number
+        in: query
+        name: pageNumber
+        type: integer
+      - description: Status filter (true for active, false for inactive)
+        in: path
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.PaginationDataResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get users by status
+      tags:
+      - users
+  /users/update-info:
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing user's information
+      parameters:
+      - description: User update details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user
+      tags:
+      - users
+  /users/verify-action:
+    get:
+      description: Verifies user action with a raw token (email, password reset, etc.)
+      parameters:
+      - description: Raw verification token
+        in: query
+        name: rawToken
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Verify action
+      tags:
+      - users
+  /users/vip/create:
+    post:
+      consumes:
+      - application/json
+      description: Registers vip code for vip user
+      parameters:
+      - description: Vip code-create details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateVipCodeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create vip code
+      tags:
+      - users
+  /vouchers:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all vouchers from the system
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Voucher'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all vouchers
+      tags:
+      - vouchers
+  /vouchers/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific voucher by its ID
+      parameters:
+      - description: Voucher ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Voucher'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      summary: Get voucher by ID
+      tags:
+      - vouchers
+  /vouchers/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new voucher with the provided details
+      parameters:
+      - description: Voucher creation request
+        in: body
+        name: voucher
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateVoucherRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Create a new voucher
+      tags:
+      - vouchers
+  /vouchers/remove/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove/delete a voucher by ID
+      parameters:
+      - description: Voucher ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Remove a voucher
+      tags:
+      - vouchers
+  /vouchers/update:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing voucher with new details
+      parameters:
+      - description: Voucher update request
+        in: body
+        name: voucher
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateVoucherRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Update a voucher
+      tags:
+      - vouchers
+  /vouchers/valid:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all currently valid/active vouchers from the system
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Voucher'
+            type: array
+        "400":
+          description: Invalid data. Please try again.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "401":
+          description: You have no rights to access this action.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+        "500":
+          description: There is something wrong in the system during the process.
+            Please try again later.
+          schema:
+            $ref: '#/definitions/response.MessageAPIResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all valid vouchers
+      tags:
+      - vouchers
+schemes:
+- http
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
